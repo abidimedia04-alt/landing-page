@@ -3,14 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CurvaSudMagana - جماهير الرجاء الرياضي</title>
+    <title>InstaVid - منصة التواصل الاجتماعي</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-color: #FF0000;
-            --secondary-color: #006400;
-            --dark-color: #1a1a1a;
-            --light-color: #f8f9fa;
+            --primary-color: #2E8B57;
+            --primary-light: #E8F5E9;
+            --secondary-color: #FFFFFF;
+            --accent-color: #FFD700;
+            --text-color: #333333;
+            --text-light: #666666;
+            --shadow-color: rgba(46, 139, 87, 0.2);
+            --border-color: #e0e0e0;
         }
         
         * {
@@ -21,10 +25,8 @@
         }
         
         body {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
-                        url('https://images.unsplash.com/photo-1560272564-c83b6647c1be?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1500&q=80') no-repeat center center fixed;
-            background-size: cover;
-            color: white;
+            background-color: #f9f9f9;
+            color: var(--text-color);
             line-height: 1.6;
         }
         
@@ -37,511 +39,1160 @@
         
         /* Header Styles */
         header {
-            padding: 30px 0;
-            background-color: rgba(0, 0, 0, 0.7);
-            border-bottom: 3px solid var(--primary-color);
+            padding: 15px 0;
+            background-color: var(--secondary-color);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px var(--shadow-color);
         }
         
-        .logo-container {
+        .header-content {
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
         }
         
         .logo {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            border: 3px solid var(--primary-color);
-            padding: 5px;
-            background-color: white;
-            margin-bottom: 15px;
-            object-fit: contain;
-            display: block;
-        }
-        
-        .logo-placeholder {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            border: 3px solid var(--primary-color);
-            background: linear-gradient(45deg, #FF0000, #006400);
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
+            font-size: 1.8rem;
             font-weight: bold;
-            font-size: 1.2rem;
-            text-align: center;
-            padding: 10px;
-        }
-        
-        .header-content h1 {
-            font-size: 2.8rem;
-            margin-bottom: 10px;
             color: var(--primary-color);
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
-        
-        .header-content p {
-            font-size: 1.2rem;
-            margin-bottom: 25px;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        /* Social Buttons */
-        .social-buttons {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin: 20px 0;
-        }
-        
-        .social-btn {
             display: flex;
             align-items: center;
-            justify-content: center;
-            padding: 12px 25px;
-            background-color: var(--primary-color);
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
         }
         
-        .social-btn i {
+        .logo i {
             margin-left: 8px;
         }
         
-        .social-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
-            background-color: #cc0000;
-        }
-        
-        .social-btn.youtube { background-color: #FF0000; }
-        .social-btn.tiktok { background-color: #000000; }
-        .social-btn.instagram { 
-            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-        }
-        
-        /* Video Section */
-        .section-title {
-            text-align: center;
-            margin: 40px 0 30px;
-            font-size: 2.2rem;
-            color: var(--primary-color);
+        .search-bar {
+            flex-grow: 1;
+            margin: 0 20px;
             position: relative;
-            padding-bottom: 15px;
         }
         
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 3px;
-            background-color: var(--primary-color);
-        }
-        
-        .video-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
-            padding: 20px 0 40px;
-        }
-        
-        .video-card {
-            background-color: rgba(0, 0, 0, 0.7);
-            border-radius: 10px;
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .video-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-        }
-        
-        .video-wrapper {
-            position: relative;
+        .search-bar input {
             width: 100%;
-            padding-top: 56.25%; /* 16:9 Aspect Ratio */
-            overflow: hidden;
-        }
-        
-        .video-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-        
-        .video-info {
-            padding: 15px;
-        }
-        
-        .video-info h3 {
-            font-size: 1.1rem;
-            margin-bottom: 10px;
-            color: var(--primary-color);
-        }
-        
-        .video-info p {
+            padding: 10px 15px;
+            padding-right: 40px;
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            background-color: var(--primary-light);
             font-size: 0.9rem;
-            color: #ddd;
         }
         
-        /* Upload Section */
-        .upload-section {
-            background-color: rgba(0, 0, 0, 0.7);
+        .search-bar i {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+        }
+        
+        .nav-icons {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-icon {
+            font-size: 1.3rem;
+            color: var(--text-color);
+            position: relative;
+        }
+        
+        .nav-icon:hover {
+            color: var(--primary-color);
+        }
+        
+        /* Auth Buttons */
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .auth-btn {
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .login-btn {
+            background: none;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+        
+        .login-btn:hover {
+            background-color: var(--primary-light);
+        }
+        
+        .signup-btn {
+            background-color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+            color: white;
+        }
+        
+        .signup-btn:hover {
+            background-color: #1f6e4a;
+        }
+        
+        /* Main Content */
+        .main-content {
+            display: flex;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        /* Auth Forms */
+        .auth-container {
+            max-width: 400px;
+            margin: 50px auto;
+            background-color: var(--secondary-color);
             padding: 30px;
             border-radius: 10px;
-            margin: 30px 0;
-            text-align: center;
-            border: 2px dashed var(--primary-color);
+            box-shadow: 0 5px 15px var(--shadow-color);
         }
         
-        .upload-btn {
-            display: inline-block;
-            padding: 12px 25px;
+        .auth-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .auth-header h2 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .auth-tab {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+        
+        .auth-tab.active {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            font-weight: bold;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+        
+        .auth-btn-submit {
+            width: 100%;
+            padding: 12px;
             background-color: var(--primary-color);
             color: white;
             border: none;
             border-radius: 5px;
-            cursor: pointer;
             font-size: 1rem;
-            margin-top: 15px;
-            transition: background-color 0.3s ease;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
         }
         
-        .upload-btn:hover {
-            background-color: #cc0000;
+        .auth-btn-submit:hover {
+            background-color: #1f6e4a;
+        }
+        
+        .auth-footer {
+            text-align: center;
+            margin-top: 20px;
+            color: var(--text-light);
+        }
+        
+        .auth-footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        /* Feed */
+        .feed {
+            flex-grow: 1;
+        }
+        
+        .create-post {
+            background-color: var(--secondary-color);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px var(--shadow-color);
+        }
+        
+        .create-post-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary-color), #1f6e4a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        
+        .create-post-input {
+            flex-grow: 1;
+            padding: 10px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            background-color: var(--primary-light);
+            cursor: pointer;
+        }
+        
+        .create-post-input:hover {
+            background-color: #e0e0e0;
+        }
+        
+        .post {
+            background-color: var(--secondary-color);
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px var(--shadow-color);
+            overflow: hidden;
+        }
+        
+        .post-header {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+        }
+        
+        .post-user-info {
+            flex-grow: 1;
+        }
+        
+        .post-username {
+            font-weight: bold;
+        }
+        
+        .post-time {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+        
+        .post-more {
+            color: var(--text-light);
+            cursor: pointer;
+        }
+        
+        .post-content {
+            position: relative;
+        }
+        
+        .post-image {
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+        }
+        
+        .post-text {
+            padding: 15px;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+        
+        .video-placeholder {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(45deg, var(--primary-color), #1f6e4a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .post-actions {
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .post-action {
+            display: flex;
+            align-items: center;
+            color: var(--text-color);
+            cursor: pointer;
+        }
+        
+        .post-action i {
+            margin-left: 5px;
+            font-size: 1.2rem;
+        }
+        
+        .post-action.liked {
+            color: #ed4956;
+        }
+        
+        .post-stats {
+            padding: 10px 15px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .post-caption {
+            padding: 15px;
+        }
+        
+        .post-caption-user {
+            font-weight: bold;
+            margin-left: 5px;
+        }
+        
+        .post-comments {
+            padding: 10px 15px;
+        }
+        
+        .comment {
+            display: flex;
+            margin-bottom: 10px;
+        }
+        
+        .comment-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary-color), #1f6e4a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.8rem;
+            margin-left: 10px;
+            flex-shrink: 0;
+        }
+        
+        .comment-content {
+            background-color: var(--primary-light);
+            padding: 10px;
+            border-radius: 18px;
+            flex-grow: 1;
+        }
+        
+        .comment-user {
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        
+        .comment-text {
+            font-size: 0.9rem;
+        }
+        
+        .post-add-comment {
+            display: flex;
+            margin-top: 10px;
+        }
+        
+        .comment-input {
+            flex-grow: 1;
+            padding: 8px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            margin-left: 10px;
+        }
+        
+        .post-btn {
+            color: var(--primary-color);
+            font-weight: bold;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        
+        /* Stories */
+        .stories {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            padding: 15px 0;
+            margin-bottom: 20px;
+            scrollbar-width: none;
+        }
+        
+        .stories::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .story {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .story-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary-color), #1f6e4a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            margin-bottom: 5px;
+            position: relative;
+        }
+        
+        .story-avatar::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid var(--primary-color);
+            top: -2px;
+            left: -2px;
+        }
+        
+        .story-username {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+        
+        .add-story {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .add-story-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            border: 1px dashed var(--primary-color);
         }
         
         /* Footer */
         footer {
-            background-color: var(--dark-color);
-            padding: 30px 0;
             text-align: center;
+            padding: 30px 0;
+            color: var(--text-light);
+            font-size: 0.9rem;
             margin-top: 40px;
-            border-top: 3px solid var(--primary-color);
         }
         
-        .footer-content {
+        .footer-links {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .footer-logo {
-            width: 80px;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
             margin-bottom: 15px;
         }
         
-        .footer-content p {
-            margin-bottom: 15px;
-            max-width: 600px;
+        .footer-link {
+            color: var(--text-light);
+            text-decoration: none;
         }
         
-        .copyright {
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid #444;
-            width: 100%;
-            color: #aaa;
+        .footer-link:hover {
+            text-decoration: underline;
         }
         
         /* Responsive Design */
-        @media (max-width: 768px) {
-            .header-content h1 {
-                font-size: 2.2rem;
+        @media (max-width: 992px) {
+            .header-content {
+                flex-wrap: wrap;
             }
             
-            .header-content p {
-                font-size: 1rem;
-            }
-            
-            .social-btn {
-                padding: 10px 20px;
-                font-size: 0.9rem;
-            }
-            
-            .section-title {
-                font-size: 1.8rem;
-            }
-            
-            .video-grid {
-                grid-template-columns: 1fr;
+            .search-bar {
+                order: 3;
+                margin: 10px 0 0;
+                width: 100%;
             }
         }
         
-        /* Scroll to Top Button */
-        .scroll-top {
+        @media (max-width: 576px) {
+            .logo {
+                font-size: 1.5rem;
+            }
+            
+            .nav-icons {
+                gap: 15px;
+            }
+            
+            .nav-icon {
+                font-size: 1.1rem;
+            }
+            
+            .auth-buttons {
+                display: none;
+            }
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
             position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background-color: var(--primary-color);
-            color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+        }
+        
+        .modal-content {
+            background-color: var(--secondary-color);
+            border-radius: 12px;
+            width: 100%;
+            max-width: 500px;
+            overflow: hidden;
+        }
+        
+        .modal-header {
+            padding: 15px;
+            border-bottom: 1px solid var(--border-color);
+            text-align: center;
+            position: relative;
+        }
+        
+        .modal-title {
+            font-weight: bold;
+        }
+        
+        .modal-close {
+            position: absolute;
+            left: 15px;
+            top: 15px;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
             cursor: pointer;
-            transition: all 0.3s ease;
-            opacity: 0;
-            visibility: hidden;
-            z-index: 1000;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
         
-        .scroll-top.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .scroll-top:hover {
-            background-color: #cc0000;
-            transform: translateY(-5px);
-        }
-        
-        /* Instructions */
-        .instructions {
-            background-color: rgba(0, 0, 0, 0.7);
+        .modal-body {
             padding: 20px;
-            border-radius: 10px;
-            margin: 20px 0;
-            border-left: 4px solid var(--primary-color);
         }
         
-        .instructions h3 {
+        .upload-options {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+        
+        .upload-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            padding: 15px;
+            border-radius: 10px;
+            transition: background-color 0.3s;
+        }
+        
+        .upload-option:hover {
+            background-color: var(--primary-light);
+        }
+        
+        .upload-option i {
+            font-size: 2rem;
             color: var(--primary-color);
             margin-bottom: 10px;
         }
         
-        .instructions ol {
-            text-align: right;
-            padding-right: 20px;
+        .upload-option span {
+            font-size: 0.9rem;
         }
         
-        .instructions li {
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            font-size: 1rem;
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .modal-footer {
+            padding: 15px;
+            border-top: 1px solid var(--border-color);
+            text-align: left;
+        }
+        
+        .submit-btn {
+            padding: 10px 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        /* Pages */
+        .page {
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        /* Welcome Section */
+        .welcome-section {
+            text-align: center;
+            padding: 50px 0;
+        }
+        
+        .welcome-title {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        .welcome-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+        
+        .features {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .feature {
+            flex: 1;
+            min-width: 250px;
+            max-width: 300px;
+            padding: 20px;
+            background-color: var(--secondary-color);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px var(--shadow-color);
+        }
+        
+        .feature i {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        .feature h3 {
             margin-bottom: 10px;
+        }
+        
+        .feature p {
+            color: var(--text-light);
+        }
+        
+        .welcome-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
         }
     </style>
 </head>
 <body>
-    <!-- Header Section -->
+    <!-- Header -->
     <header>
         <div class="container">
-            <div class="logo-container">
-                <!-- سيتم عرض الشعار هنا إذا كان موجودًا -->
-                <img id="channelLogo" class="logo" src="" alt="شعار قناة CurvaSudMagana" style="display: none;">
-                
-                <!-- عنصر نائب سيظهر إذا لم يتم العثور على الشعار -->
-                <div id="logoPlaceholder" class="logo-placeholder">
-                    شعار القناة<br>(logo.png)
-                </div>
-            </div>
             <div class="header-content">
-                <h1>CurvaSudMagana</h1>
-                <p>قناة مخصصة لعشاق جماهير الرجاء الرياضي - المغانة. هنا تجد أحدث الفيديوهات، التشجيع، الأغاني واللحظات الرائعة من المدرجات.</p>
+                <div class="logo">
+                    <i class="fas fa-play-circle"></i>
+                    InstaVid
+                </div>
                 
-                <div class="social-buttons">
-                    <a href="https://youtube.com/@curvasudmagana.?si=Qew-261HUPSjLzVE" class="social-btn youtube" target="_blank">
-                        <i class="fab fa-youtube"></i> يوتيوب
-                    </a>
-                    <a href="https://www.tiktok.com/@curvasudmagaana?_t=ZS-8zEwNMKwMPy&_r=1" class="social-btn tiktok" target="_blank">
-                        <i class="fab fa-tiktok"></i> تيك توك
-                    </a>
-                    <a href="https://www.instagram.com/curvasud_maganaa?igsh=OGhvcWUwZDNxMGM4&utm_source=qr" class="social-btn instagram" target="_blank">
-                        <i class="fab fa-instagram"></i> إنستغرام
-                    </a>
+                <div class="search-bar">
+                    <input type="text" placeholder="بحث">
+                    <i class="fas fa-search"></i>
+                </div>
+                
+                <div class="nav-icons">
+                    <div class="nav-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <div class="nav-icon">
+                        <i class="fas fa-compass"></i>
+                    </div>
+                    <div class="nav-icon">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <div class="nav-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div class="nav-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                </div>
+                
+                <div class="auth-buttons">
+                    <button class="auth-btn login-btn" onclick="showAuth('login')">تسجيل الدخول</button>
+                    <button class="auth-btn signup-btn" onclick="showAuth('signup')">إنشاء حساب</button>
                 </div>
             </div>
         </div>
     </header>
     
-    <!-- Instructions Section -->
+    <!-- Main Content -->
     <div class="container">
-        <div class="instructions">
-            <h3>كيفية إضافة شعار القناة:</h3>
-            <ol>
-                <li>تأكد من وجود ملف الشعار باسم <strong>logo.png</strong> في نفس مجلد صفحة الويب</li>
-                <li>أو يمكنك رفع الشعار باستخدام الأداة أدناه</li>
-                <li>بعد الرفع، سيظهر الشعار تلقائيًا في الأعلى</li>
-            </ol>
+        <!-- Welcome Page -->
+        <div class="page active" id="welcome-page">
+            <div class="welcome-section">
+                <h1 class="welcome-title">مرحباً بك في InstaVid</h1>
+                <p class="welcome-subtitle">منصة التواصل الاجتماعي الشاملة لمشاركة حياتك اليومية مع الأصدقاء والعائلة</p>
+                
+                <div class="features">
+                    <div class="feature">
+                        <i class="fas fa-user-plus"></i>
+                        <h3>أنشئ حسابك</h3>
+                        <p>انضم إلى مجتمعنا وأنشئ حسابك الشخصي في دقائق</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-share-alt"></i>
+                        <h3>شارك محتواك</h3>
+                        <p>انشر الصور والفيديوهات والتحديثات اليومية</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-users"></i>
+                        <h3>تواصل مع الآخرين</h3>
+                        <p>ابني شبكة علاقات وتواصل مع أصدقائك ومعارفك</p>
+                    </div>
+                </div>
+                
+                <div class="welcome-buttons">
+                    <button class="auth-btn signup-btn" onclick="showAuth('signup')">إنشاء حساب</button>
+                    <button class="auth-btn login-btn" onclick="showAuth('login')">تسجيل الدخول</button>
+                </div>
+            </div>
         </div>
         
-        <!-- Upload Section -->
-        <div class="upload-section">
-            <h3>رفع شعار القناة</h3>
-            <p>إذا لم يكن الشعار متوفرًا، يمكنك رفعه من هنا:</p>
-            <input type="file" id="logoUpload" accept="image/*" style="display: none;">
-            <button class="upload-btn" onclick="document.getElementById('logoUpload').click()">اختر صورة</button>
-            <p id="uploadStatus" style="margin-top: 10px; color: #ddd; font-size: 0.9rem;"></p>
+        <!-- Auth Page -->
+        <div class="page" id="auth-page">
+            <div class="auth-container">
+                <div class="auth-header">
+                    <h2 id="auth-title">تسجيل الدخول</h2>
+                    <p id="auth-subtitle">ادخل إلى حسابك للتواصل مع الأصدقاء</p>
+                </div>
+                
+                <div class="auth-tabs">
+                    <div class="auth-tab active" id="login-tab" onclick="switchAuthTab('login')">تسجيل الدخول</div>
+                    <div class="auth-tab" id="signup-tab" onclick="switchAuthTab('signup')">إنشاء حساب</div>
+                </div>
+                
+                <form id="auth-form">
+                    <div class="form-group">
+                        <label for="email">البريد الإلكتروني</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">كلمة المرور</label>
+                        <input type="password" id="password" required>
+                    </div>
+                    
+                    <div class="form-group" id="username-field" style="display: none;">
+                        <label for="username">اسم المستخدم</label>
+                        <input type="text" id="username">
+                    </div>
+                    
+                    <button type="submit" class="auth-btn-submit" id="auth-submit">تسجيل الدخول</button>
+                </form>
+                
+                <div class="auth-footer">
+                    <p>بالاستمرار، فإنك توافق على <a href="#">شروط الخدمة</a> و<a href="#">سياسة الخصوصية</a></p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Feed Page (shown after login) -->
+        <div class="page" id="feed-page">
+            <div class="main-content">
+                <!-- Feed -->
+                <div class="feed">
+                    <!-- Stories -->
+                    <div class="stories">
+                        <div class="add-story">
+                            <div class="add-story-avatar">
+                                <i class="fas fa-plus"></i>
+                            </div>
+                            <div class="story-username">قصة جديدة</div>
+                        </div>
+                        
+                        <div class="story">
+                            <div class="story-avatar">م</div>
+                            <div class="story-username">محمد</div>
+                        </div>
+                        
+                        <div class="story">
+                            <div class="story-avatar">س</div>
+                            <div class="story-username">سارة</div>
+                        </div>
+                        
+                        <div class="story">
+                            <div class="story-avatar">ع</div>
+                            <div class="story-username">علي</div>
+                        </div>
+                        
+                        <div class="story">
+                            <div class="story-avatar">ل</div>
+                            <div class="story-username">ليلى</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Create Post -->
+                    <div class="create-post">
+                        <div class="create-post-header">
+                            <div class="user-avatar" id="user-avatar">م</div>
+                            <div class="create-post-input" onclick="openModal()">
+                                شارك بما يدور في ذهنك...
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Sample Posts -->
+                    <div class="post">
+                        <div class="post-header">
+                            <div class="user-avatar">س</div>
+                            <div class="post-user-info">
+                                <div class="post-username">سارة أحمد</div>
+                                <div class="post-time">قبل ساعتين</div>
+                            </div>
+                            <div class="post-more">
+                                <i class="fas fa-ellipsis-h"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="post-text">
+                            <p>يوم رائع على الشاطئ! ☀️🌊 لا يمكنني الانتظار للعودة مرة أخرى.</p>
+                        </div>
+                        
+                        <div class="post-actions">
+                            <div class="post-action">
+                                <i class="far fa-heart"></i>
+                                <span>إعجاب</span>
+                            </div>
+                            <div class="post-action">
+                                <i class="far fa-comment"></i>
+                                <span>تعليق</span>
+                            </div>
+                            <div class="post-action">
+                                <i class="far fa-share-square"></i>
+                                <span>مشاركة</span>
+                            </div>
+                        </div>
+                        
+                        <div class="post-stats">
+                            <span>١٢٤ إعجاب</span>
+                            <span>•</span>
+                            <span>١٥ تعليق</span>
+                        </div>
+                        
+                        <div class="post-comments">
+                            <div class="comment">
+                                <div class="comment-avatar">م</div>
+                                <div class="comment-content">
+                                    <div class="comment-user">محمد</div>
+                                    <div class="comment-text">يبدو رائعاً! أتمنى لو كنت هناك.</div>
+                                </div>
+                            </div>
+                            
+                            <div class="post-add-comment">
+                                <input type="text" class="comment-input" placeholder="أضف تعليقاً...">
+                                <button class="post-btn">نشر</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="post">
+                        <div class="post-header">
+                            <div class="user-avatar">ع</div>
+                            <div class="post-user-info">
+                                <div class="post-username">علي حسن</div>
+                                <div class="post-time">قبل ٥ ساعات</div>
+                            </div>
+                            <div class="post-more">
+                                <i class="fas fa-ellipsis-h"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="post-text">
+                            <p>شاركني رأيك في هذا الفيديو الجديد الذي أنتجته! ✨</p>
+                        </div>
+                        
+                        <div class="post-content">
+                            <div class="video-placeholder">
+                                <i class="fas fa-play-circle"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="post-actions">
+                            <div class="post-action">
+                                <i class="far fa-heart"></i>
+                                <span>إعجاب</span>
+                            </div>
+                            <div class="post-action">
+                                <i class="far fa-comment"></i>
+                                <span>تعليق</span>
+                            </div>
+                            <div class="post-action">
+                                <i class="far fa-share-square"></i>
+                                <span>مشاركة</span>
+                            </div>
+                        </div>
+                        
+                        <div class="post-stats">
+                            <span>٣٤٥ إعجاب</span>
+                            <span>•</span>
+                            <span>٤٢ تعليق</span>
+                        </div>
+                        
+                        <div class="post-comments">
+                            <div class="post-add-comment">
+                                <input type="text" class="comment-input" placeholder="أضف تعليقاً...">
+                                <button class="post-btn">نشر</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    
-    <!-- Main Content -->
-    <main class="container">
-        <h2 class="section-title">أفضل الفيديوهات</h2>
-        
-        <div class="video-grid">
-            <!-- Video 1 -->
-            <div class="video-card">
-                <div class="video-wrapper">
-                    <iframe src="https://www.youtube.com/embed/oRgQgP0oEWQ" allowfullscreen></iframe>
-                </div>
-                <div class="video-info">
-                    <h3>جماهير الرجاء الرياضي</h3>
-                    <p>فيديو ممتع لجماهير الرجاء الرياضي.</p>
-                </div>
-            </div>
-            
-            <!-- Video 2 -->
-            <div class="video-card">
-                <div class="video-wrapper">
-                    <iframe src="https://www.youtube.com/embed/Vxx2XuxOp8Y" allowfullscreen></iframe>
-                </div>
-                <div class="video-info">
-                    <h3>تشجيع لاتيني</h3>
-                    <p>لحظات ممتعة وتشجيع لاتيني من الكورفاسود.</p>
-                </div>
-            </div>
-            
-            <!-- Video 3 -->
-            <div class="video-card">
-                <div class="video-wrapper">
-                    <iframe src="https://www.youtube.com/embed/6UnNwTPCfhY" allowfullscreen></iframe>
-                </div>
-                <div class="video-info">
-                    <h3>تفاعل جماهيري</h3>
-                    <p>تفاعل جماهيري لجمهور المغانة.</p>
-                </div>
-            </div>
-            
-            <!-- Video 4 -->
-            <div class="video-card">
-                <div class="video-wrapper">
-                    <iframe src="https://www.youtube.com/embed/TdQcgtrsiF4" allowfullscreen></iframe>
-                </div>
-                <div class="video-info">
-                    <h3>أجواء رائعة</h3>
-                    <p>أجواء رائعة لجمهور الخضرا.</p>
-                </div>
-            </div>
-        </div>
-    </main>
     
     <!-- Footer -->
     <footer>
         <div class="container">
-            <div class="footer-content">
-                <img src="https://via.placeholder.com/80/ffffff/FF0000?text=CSM" alt="شعار CurvaSudMagana" class="footer-logo">
-                <p>تابعنا على جميع منصات التواصل الاجتماعي لمشاهدة أحدث الفيديوهات واللحظات الرائعة لجماهير الرجاء الرياضي</p>
-                
-                <div class="social-buttons">
-                    <a href="https://youtube.com/@curvasudmagana.?si=Qew-261HUPSjLzVE" class="social-btn youtube" target="_blank">
-                        <i class="fab fa-youtube"></i>
-                    </a>
-                    <a href="https://www.tiktok.com/@curvasudmagaana?_t=ZS-8zEwNMKwMPy&_r=1" class="social-btn tiktok" target="_blank">
-                        <i class="fab fa-tiktok"></i>
-                    </a>
-                    <a href="https://www.instagram.com/curvasud_maganaa?igsh=OGhvcWUwZDNxMGM4&utm_source=qr" class="social-btn instagram" target="_blank">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                </div>
-                
-                <div class="copyright">
-                    &copy; 2023 CurvaSudMagana - جميع الحقوق محفوظة
-                </div>
+            <div class="footer-links">
+                <a href="#" class="footer-link">معلومات</a>
+                <a href="#" class="footer-link">الدعم</a>
+                <a href="#" class="footer-link">الخصوصية</a>
+                <a href="#" class="footer-link">الشروط</a>
+                <a href="#" class="footer-link">الموقع</a>
+                <a href="#" class="footer-link">اللغات</a>
             </div>
+            <div>© 2023 InstaVid منصة التواصل الاجتماعي</div>
         </div>
     </footer>
     
-    <!-- Scroll to Top Button -->
-    <div class="scroll-top" id="scrollTop">
-        <i class="fas fa-arrow-up"></i>
+    <!-- Create Post Modal -->
+    <div class="modal" id="createModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="modal-close" onclick="closeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+                <div class="modal-title">إنشاء منشور جديد</div>
+            </div>
+            <div class="modal-body">
+                <div class="upload-options">
+                    <div class="upload-option">
+                        <i class="fas fa-image"></i>
+                        <span>صورة</span>
+                    </div>
+                    <div class="upload-option">
+                        <i class="fas fa-video"></i>
+                        <span>فيديو</span>
+                    </div>
+                    <div class="upload-option">
+                        <i class="fas fa-file-alt"></i>
+                        <span>نص فقط</span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <textarea placeholder="ماذا يدور في ذهنك؟"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="submit-btn">نشر</button>
+            </div>
+        </div>
     </div>
     
     <script>
-        // محاولة تحميل الشعار تلقائيًا
-        window.addEventListener('load', function() {
-            const logo = document.getElementById('channelLogo');
-            const placeholder = document.getElementById('logoPlaceholder');
-            
-            // محاولة تحميل الشعار من مسار logo.png
-            logo.src = 'logo.png';
-            
-            // عند تحميل الشعار بنجاح
-            logo.onload = function() {
-                logo.style.display = 'block';
-                placeholder.style.display = 'none';
-            };
-            
-            // إذا فشل تحميل الشعار
-            logo.onerror = function() {
-                logo.style.display = 'none';
-                placeholder.style.display = 'flex';
-            };
-        });
+        // بيانات التخزين
+        let currentUser = null;
+        let users = JSON.parse(localStorage.getItem('instavid_users')) || [];
+        let posts = JSON.parse(localStorage.getItem('instavid_posts')) || [];
         
-        // معالجة رفع الشعار
-        document.getElementById('logoUpload').addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const logo = document.getElementById('channelLogo');
-                    const placeholder = document.getElementById('logoPlaceholder');
-                    const status = document.getElementById('uploadStatus');
-                    
-                    logo.src = e.target.result;
-                    logo.style.display = 'block';
-                    placeholder.style.display = 'none';
-                    status.textContent = 'تم رفع الشعار بنجاح!';
-                    status.style.color = '#4CAF50';
-                    
-                    // إخفاء الرسالة بعد 3 ثوان
-                    setTimeout(() => {
-                        status.textContent = '';
-                    }, 3000);
-                };
-                reader.readAsDataURL(file);
+        // تحميل المحتوى عند بدء التشغيل
+        document.addEventListener('DOMContentLoaded', function() {
+            // تحقق إذا كان هناك مستخدم مسجل دخوله
+            const savedUser = localStorage.getItem('instavid_current_user');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                showPage('feed-page');
+                document.getElementById('user-avatar').textContent = currentUser.username.charAt(0);
             }
         });
         
-        // Scroll to Top Functionality
-        const scrollButton = document.getElementById('scrollTop');
-        
-        window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 300) {
-                scrollButton.classList.add('active');
-            } else {
-                scrollButton.classList.remove('active');
-            }
-        });
-        
-        scrollButton.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
+        // إظهار وإخفاء الصفحات
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
             });
+            document.getElementById(pageId).classList.add('active');
+        }
+        
+        // إظهار نموذج التسجيل/الدخول
+        function showAuth(type) {
+            showPage('auth-page');
+            switchAuthTab(type);
+        }
+        
+        // التبديل بين علامات التسجيل والدخول
+        function switchAuthTab(type) {
+            document.getElementById('login-tab').classList.remove('active');
+            document.getElementById('signup-tab').classList.remove('active');
+            document.getElementById(`${type}-tab`).classList.add('active');
+            
+            if (type === 'login') {
+                document.getElementById('auth-title').textContent = 'تسجيل الدخول';
+                document.getElementById('auth-subtitle').textContent = 'ادخل إلى حسابك للتواصل مع الأصدقاء';
+                document.getElementById('auth-submit').textContent = 'تسجيل الدخول';
+                document.getElementById('username-field').style.display = 'none';
+            } else {
+                document.getElementById('auth-title').textContent = 'إنشاء حساب';
+                document.getElementById('auth-subtitle').textContent = 'انضم إلى مجتمعنا وابدأ بمشاركة حياتك اليومية';
+                document.getElementById('auth-submit').textContent = 'إنشاء حساب';
+                document.getElementById('username-field').style.display = 'block';
+            }
+        }
+        
+        // معالجة تقديم النموذج
+        document.getElementById('auth-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const username = document.getElementById('username').value;
+            const isLogin = document.getElementById('login-tab').classList.contains('active');
+            
+            if (isLogin) {
+                // تسجيل الدخول
+                const user = users.find(u => u.email === email && u.password === password);
+                if (user) {
+                    currentUser = user;
+                    localStorage.setItem('instavid_current_user', JSON.stringify(user));
+                    showPage('feed-page');
+                    document.getElementById('user-avatar').textContent = user.username.charAt(0);
+                } else {
+                    alert('البريد الإلكتروني أو كلمة المرور غير صحيحة');
+                }
+            } else {
+                // إنشاء حساب
+                if (users.some(u => u.email === email)) {
+                    alert('هذا البريد الإلكتروني مستخدم بالفعل');
+                    return;
+                }
+                
+                const newUser = {
+                    id: Date.now(),
+                    email,
+                    password,
+                    username,
+                    joined: new Date().toLocaleDateString('ar-SA')
+                };
+                
+                users.push(newUser);
+                localStorage.setItem('instavid_users', JSON.stringify(users));
+                
+                currentUser = newUser;
+                localStorage.setItem('instavid_current_user', JSON.stringify(newUser));
+                
+                showPage('feed-page');
+                document.getElementById('user-avatar').textContent = newUser.username.charAt(0);
+                
+                alert('تم إنشاء حسابك بنجاح!');
+            }
+        });
+        
+        // Modal functionality
+        function openModal() {
+            if (!currentUser) {
+                showAuth('login');
+                return;
+            }
+            document.getElementById('createModal').style.display = 'flex';
+        }
+        
+        function closeModal() {
+            document.getElementById('createModal').style.display = 'none';
+        }
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', function(event) {
+            if (event.target == document.getElementById('createModal')) {
+                closeModal();
+            }
+        });
+        
+        // Like functionality
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.post-action')) {
+                if (!currentUser) {
+                    showAuth('login');
+                    return;
+                }
+                
+                const action = e.target.closest('.post-action');
+                if (action.classList.contains('liked')) {
+                    action.classList.remove('liked');
+                    action.querySelector('i').classList.remove('fas');
+                    action.querySelector('i').classList.add('far');
+                } else {
+                    action.classList.add('liked');
+                    action.querySelector('i').classList.remove('far');
+                    action.querySelector('i').classList.add('fas');
+                }
+            }
         });
     </script>
 </body>
