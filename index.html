@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CurvaSudMagana - جماهير الرجاء الرياضي</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #FF0000;
+            --secondary-color: #006400;
+            --dark-color: #1a1a1a;
+            --light-color: #f8f9fa;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.unsplash.com/photo-1560272564-c83b6647c1be?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1500&q=80') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            padding: 30px 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-bottom: 3px solid var(--primary-color);
+        }
+        
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .logo {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 3px solid var(--primary-color);
+            padding: 5px;
+            background-color: white;
+            margin-bottom: 15px;
+            object-fit: contain;
+            display: block;
+        }
+        
+        .logo-placeholder {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 3px solid var(--primary-color);
+            background: linear-gradient(45deg, #FF0000, #006400);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+            text-align: center;
+            padding: 10px;
+        }
+        
+        .header-content h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .header-content p {
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Social Buttons */
+        .social-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 25px;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+        
+        .social-btn i {
+            margin-left: 8px;
+        }
+        
+        .social-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+            background-color: #cc0000;
+        }
+        
+        .social-btn.youtube { background-color: #FF0000; }
+        .social-btn.tiktok { background-color: #000000; }
+        .social-btn.instagram { 
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+        }
+        
+        /* Video Section */
+        .section-title {
+            text-align: center;
+            margin: 40px 0 30px;
+            font-size: 2.2rem;
+            color: var(--primary-color);
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+        
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            padding: 20px 0 40px;
+        }
+        
+        .video-card {
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            overflow: hidden;
+        }
+        
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .video-info {
+            padding: 15px;
+        }
+        
+        .video-info h3 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        .video-info p {
+            font-size: 0.9rem;
+            color: #ddd;
+        }
+        
+        /* Upload Section */
+        .upload-section {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            border-radius: 10px;
+            margin: 30px 0;
+            text-align: center;
+            border: 2px dashed var(--primary-color);
+        }
+        
+        .upload-btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 15px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .upload-btn:hover {
+            background-color: #cc0000;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            padding: 30px 0;
+            text-align: center;
+            margin-top: 40px;
+            border-top: 3px solid var(--primary-color);
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .footer-logo {
+            width: 80px;
+            margin-bottom: 15px;
+        }
+        
+        .footer-content p {
+            margin-bottom: 15px;
+            max-width: 600px;
+        }
+        
+        .copyright {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            width: 100%;
+            color: #aaa;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content h1 {
+                font-size: 2.2rem;
+            }
+            
+            .header-content p {
+                font-size: 1rem;
+            }
+            
+            .social-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Scroll to Top Button */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--primary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .scroll-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .scroll-top:hover {
+            background-color: #cc0000;
+            transform: translateY(-5px);
+        }
+        
+        /* Instructions */
+        .instructions {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .instructions h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .instructions ol {
+            text-align: right;
+            padding-right: 20px;
+        }
+        
+        .instructions li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <div class="logo-container">
+                <!-- سيتم عرض الشعار هنا إذا كان موجودًا -->
+                <img id="channelLogo" class="logo" src="" alt="شعار قناة CurvaSudMagana" style="display: none;">
+                
+                <!-- عنصر نائب سيظهر إذا لم يتم العثور على الشعار -->
+                <div id="logoPlaceholder" class="logo-placeholder">
+                    شعار القناة<br>(logo.png)
+                </div>
+            </div>
+            <div class="header-content">
+                <h1>CurvaSudMagana</h1>
+                <p>قناة مخصصة لعشاق جماهير الرجاء الرياضي - المغانة. هنا تجد أحدث الفيديوهات، التشجيع، الأغاني واللحظات الرائعة من المدرجات.</p>
+                
+                <div class="social-buttons">
+                    <a href="https://youtube.com/@curvasudmagana.?si=Qew-261HUPSjLzVE" class="social-btn youtube" target="_blank">
+                        <i class="fab fa-youtube"></i> يوتيوب
+                    </a>
+                    <a href="https://www.tiktok.com/@curvasudmagaana?_t=ZS-8zEwNMKwMPy&_r=1" class="social-btn tiktok" target="_blank">
+                        <i class="fab fa-tiktok"></i> تيك توك
+                    </a>
+                    <a href="https://www.instagram.com/curvasud_maganaa?igsh=OGhvcWUwZDNxMGM4&utm_source=qr" class="social-btn instagram" target="_blank">
+                        <i class="fab fa-instagram"></i> إنستغرام
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Instructions Section -->
+    <div class="container">
+        <div class="instructions">
+            <h3>كيفية إضافة شعار القناة:</h3>
+            <ol>
+                <li>تأكد من وجود ملف الشعار باسم <strong>logo.png</strong> في نفس مجلد صفحة الويب</li>
+                <li>أو يمكنك رفع الشعار باستخدام الأداة أدناه</li>
+                <li>بعد الرفع، سيظهر الشعار تلقائيًا في الأعلى</li>
+            </ol>
+        </div>
+        
+        <!-- Upload Section -->
+        <div class="upload-section">
+            <h3>رفع شعار القناة</h3>
+            <p>إذا لم يكن الشعار متوفرًا، يمكنك رفعه من هنا:</p>
+            <input type="file" id="logoUpload" accept="image/*" style="display: none;">
+            <button class="upload-btn" onclick="document.getElementById('logoUpload').click()">اختر صورة</button>
+            <p id="uploadStatus" style="margin-top: 10px; color: #ddd; font-size: 0.9rem;"></p>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <main class="container">
+        <h2 class="section-title">أفضل الفيديوهات</h2>
+        
+        <div class="video-grid">
+            <!-- Video 1 -->
+            <div class="video-card">
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/oRgQgP0oEWQ" allowfullscreen></iframe>
+                </div>
+                <div class="video-info">
+                    <h3>جماهير الرجاء الرياضي</h3>
+                    <p>فيديو ممتع لجماهير الرجاء الرياضي.</p>
+                </div>
+            </div>
+            
+            <!-- Video 2 -->
+            <div class="video-card">
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/Vxx2XuxOp8Y" allowfullscreen></iframe>
+                </div>
+                <div class="video-info">
+                    <h3>تشجيع لاتيني</h3>
+                    <p>لحظات ممتعة وتشجيع لاتيني من الكورفاسود.</p>
+                </div>
+            </div>
+            
+            <!-- Video 3 -->
+            <div class="video-card">
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/6UnNwTPCfhY" allowfullscreen></iframe>
+                </div>
+                <div class="video-info">
+                    <h3>تفاعل جماهيري</h3>
+                    <p>تفاعل جماهيري لجمهور المغانة.</p>
+                </div>
+            </div>
+            
+            <!-- Video 4 -->
+            <div class="video-card">
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/TdQcgtrsiF4" allowfullscreen></iframe>
+                </div>
+                <div class="video-info">
+                    <h3>أجواء رائعة</h3>
+                    <p>أجواء رائعة لجمهور الخضرا.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <img src="https://via.placeholder.com/80/ffffff/FF0000?text=CSM" alt="شعار CurvaSudMagana" class="footer-logo">
+                <p>تابعنا على جميع منصات التواصل الاجتماعي لمشاهدة أحدث الفيديوهات واللحظات الرائعة لجماهير الرجاء الرياضي</p>
+                
+                <div class="social-buttons">
+                    <a href="https://youtube.com/@curvasudmagana.?si=Qew-261HUPSjLzVE" class="social-btn youtube" target="_blank">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                    <a href="https://www.tiktok.com/@curvasudmagaana?_t=ZS-8zEwNMKwMPy&_r=1" class="social-btn tiktok" target="_blank">
+                        <i class="fab fa-tiktok"></i>
+                    </a>
+                    <a href="https://www.instagram.com/curvasud_maganaa?igsh=OGhvcWUwZDNxMGM4&utm_source=qr" class="social-btn instagram" target="_blank">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+                
+                <div class="copyright">
+                    &copy; 2023 CurvaSudMagana - جميع الحقوق محفوظة
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top" id="scrollTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+    
+    <script>
+        // محاولة تحميل الشعار تلقائيًا
+        window.addEventListener('load', function() {
+            const logo = document.getElementById('channelLogo');
+            const placeholder = document.getElementById('logoPlaceholder');
+            
+            // محاولة تحميل الشعار من مسار logo.png
+            logo.src = 'logo.png';
+            
+            // عند تحميل الشعار بنجاح
+            logo.onload = function() {
+                logo.style.display = 'block';
+                placeholder.style.display = 'none';
+            };
+            
+            // إذا فشل تحميل الشعار
+            logo.onerror = function() {
+                logo.style.display = 'none';
+                placeholder.style.display = 'flex';
+            };
+        });
+        
+        // معالجة رفع الشعار
+        document.getElementById('logoUpload').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const logo = document.getElementById('channelLogo');
+                    const placeholder = document.getElementById('logoPlaceholder');
+                    const status = document.getElementById('uploadStatus');
+                    
+                    logo.src = e.target.result;
+                    logo.style.display = 'block';
+                    placeholder.style.display = 'none';
+                    status.textContent = 'تم رفع الشعار بنجاح!';
+                    status.style.color = '#4CAF50';
+                    
+                    // إخفاء الرسالة بعد 3 ثوان
+                    setTimeout(() => {
+                        status.textContent = '';
+                    }, 3000);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        // Scroll to Top Functionality
+        const scrollButton = document.getElementById('scrollTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollButton.classList.add('active');
+            } else {
+                scrollButton.classList.remove('active');
+            }
+        });
+        
+        scrollButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>
