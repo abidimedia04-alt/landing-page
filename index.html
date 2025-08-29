@@ -1,9 +1,11 @@
+
+```html
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>InstaVid - منصة التواصل الاجتماعي</title>
+    <title>InstaVid - Social Media Platform</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -105,6 +107,55 @@
             color: var(--primary-color);
         }
         
+        /* Language Selector */
+        .language-selector {
+            position: relative;
+            margin-left: 15px;
+        }
+        
+        .language-btn {
+            display: flex;
+            align-items: center;
+            background: none;
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        
+        .language-btn i {
+            margin-left: 5px;
+        }
+        
+        .language-dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: var(--secondary-color);
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            padding: 10px;
+            width: 150px;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            z-index: 1000;
+        }
+        
+        .language-dropdown.show {
+            display: block;
+        }
+        
+        .language-option {
+            padding: 8px 10px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        
+        .language-option:hover {
+            background-color: var(--primary-light);
+        }
+        
         /* Auth Buttons */
         .auth-buttons {
             display: flex;
@@ -196,7 +247,7 @@
             font-weight: bold;
         }
         
-        .form-group input {
+        .form-group input, .form-group textarea {
             width: 100%;
             padding: 12px 15px;
             border: 1px solid var(--border-color);
@@ -204,7 +255,7 @@
             font-size: 1rem;
         }
         
-        .form-group input:focus {
+        .form-group input:focus, .form-group textarea:focus {
             outline: none;
             border-color: var(--primary-color);
         }
@@ -647,14 +698,21 @@
             font-size: 0.9rem;
         }
         
-        .form-group textarea {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid var(--border-color);
-            border-radius: 5px;
-            font-size: 1rem;
-            min-height: 100px;
-            resize: vertical;
+        .file-input {
+            display: none;
+        }
+        
+        .preview-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .preview-image, .preview-video {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 10px;
+            margin-top: 10px;
+            display: none;
         }
         
         .modal-footer {
@@ -671,6 +729,11 @@
             border-radius: 4px;
             cursor: pointer;
             font-weight: bold;
+        }
+        
+        .submit-btn:disabled {
+            background-color: var(--text-light);
+            cursor: not-allowed;
         }
         
         /* Pages */
@@ -738,6 +801,43 @@
             justify-content: center;
             gap: 15px;
         }
+        
+        /* Loading Spinner */
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-left: 4px solid var(--primary-color);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+            display: none;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            z-index: 1000;
+            display: none;
+            animation: slideIn 0.3s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
     </style>
 </head>
 <body>
@@ -747,11 +847,11 @@
             <div class="header-content">
                 <div class="logo">
                     <i class="fas fa-play-circle"></i>
-                    InstaVid
+                    <span>InstaVid</span>
                 </div>
                 
                 <div class="search-bar">
-                    <input type="text" placeholder="بحث">
+                    <input type="text" placeholder="ابحث عن محتوى أو مستخدمين">
                     <i class="fas fa-search"></i>
                 </div>
                 
@@ -773,13 +873,33 @@
                     </div>
                 </div>
                 
+                <div class="language-selector">
+                    <button class="language-btn" onclick="toggleLanguageDropdown()">
+                        <span>العربية</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="language-dropdown" id="language-dropdown">
+                        <div class="language-option" onclick="changeLanguage('ar')">العربية</div>
+                        <div class="language-option" onclick="changeLanguage('en')">English</div>
+                        <div class="language-option" onclick="changeLanguage('fr')">Français</div>
+                        <div class="language-option" onclick="changeLanguage('es')">Español</div>
+                    </div>
+                </div>
+                
                 <div class="auth-buttons">
-                    <button class="auth-btn login-btn" onclick="showAuth('login')">تسجيل الدخول</button>
-                    <button class="auth-btn signup-btn" onclick="showAuth('signup')">إنشاء حساب</button>
+                    <button class="auth-btn login-btn" onclick="showAuth('login')">
+                        تسجيل الدخول
+                    </button>
+                    <button class="auth-btn signup-btn" onclick="showAuth('signup')">
+                        إنشاء حساب
+                    </button>
                 </div>
             </div>
         </div>
     </header>
+    
+    <!-- Notification -->
+    <div class="notification" id="notification"></div>
     
     <!-- Main Content -->
     <div class="container">
@@ -808,8 +928,12 @@
                 </div>
                 
                 <div class="welcome-buttons">
-                    <button class="auth-btn signup-btn" onclick="showAuth('signup')">إنشاء حساب</button>
-                    <button class="auth-btn login-btn" onclick="showAuth('login')">تسجيل الدخول</button>
+                    <button class="auth-btn signup-btn" onclick="showAuth('signup')">
+                        إنشاء حساب
+                    </button>
+                    <button class="auth-btn login-btn" onclick="showAuth('login')">
+                        تسجيل الدخول
+                    </button>
                 </div>
             </div>
         </div>
@@ -823,8 +947,12 @@
                 </div>
                 
                 <div class="auth-tabs">
-                    <div class="auth-tab active" id="login-tab" onclick="switchAuthTab('login')">تسجيل الدخول</div>
-                    <div class="auth-tab" id="signup-tab" onclick="switchAuthTab('signup')">إنشاء حساب</div>
+                    <div class="auth-tab active" id="login-tab" onclick="switchAuthTab('login')">
+                        تسجيل الدخول
+                    </div>
+                    <div class="auth-tab" id="signup-tab" onclick="switchAuthTab('signup')">
+                        إنشاء حساب
+                    </div>
                 </div>
                 
                 <form id="auth-form">
@@ -859,51 +987,33 @@
                 <div class="feed">
                     <!-- Stories -->
                     <div class="stories">
-                        <div class="add-story">
+                        <div class="add-story" onclick="openModal()">
                             <div class="add-story-avatar">
                                 <i class="fas fa-plus"></i>
                             </div>
                             <div class="story-username">قصة جديدة</div>
                         </div>
                         
-                        <div class="story">
-                            <div class="story-avatar">م</div>
-                            <div class="story-username">محمد</div>
-                        </div>
-                        
-                        <div class="story">
-                            <div class="story-avatar">س</div>
-                            <div class="story-username">سارة</div>
-                        </div>
-                        
-                        <div class="story">
-                            <div class="story-avatar">ع</div>
-                            <div class="story-username">علي</div>
-                        </div>
-                        
-                        <div class="story">
-                            <div class="story-avatar">ل</div>
-                            <div class="story-username">ليلى</div>
-                        </div>
+                        <!-- سيتم إضافة القصص ديناميكياً بعد تسجيل الدخول -->
                     </div>
                     
                     <!-- Create Post -->
                     <div class="create-post">
                         <div class="create-post-header">
-                            <div class="user-avatar" id="user-avatar">م</div>
+                            <div class="user-avatar" id="user-avatar">U</div>
                             <div class="create-post-input" onclick="openModal()">
                                 شارك بما يدور في ذهنك...
                             </div>
                         </div>
                     </div>
                     
-                    <!-- Sample Posts -->
-                    <div class="post">
+                    <!-- سيتم إضافة المنشورات ديناميكياً بعد تسجيل الدخول -->
+                    <div class="post" id="sample-post" style="display: none;">
                         <div class="post-header">
-                            <div class="user-avatar">س</div>
+                            <div class="user-avatar">U</div>
                             <div class="post-user-info">
-                                <div class="post-username">سارة أحمد</div>
-                                <div class="post-time">قبل ساعتين</div>
+                                <div class="post-username">مستخدم</div>
+                                <div class="post-time">الآن</div>
                             </div>
                             <div class="post-more">
                                 <i class="fas fa-ellipsis-h"></i>
@@ -911,7 +1021,7 @@
                         </div>
                         
                         <div class="post-text">
-                            <p>يوم رائع على الشاطئ! ☀️🌊 لا يمكنني الانتظار للعودة مرة أخرى.</p>
+                            <p>مرحباً! هذا منشور تجريبي لاختبار الموقع.</p>
                         </div>
                         
                         <div class="post-actions">
@@ -930,68 +1040,9 @@
                         </div>
                         
                         <div class="post-stats">
-                            <span>١٢٤ إعجاب</span>
+                            <span>0 إعجاب</span>
                             <span>•</span>
-                            <span>١٥ تعليق</span>
-                        </div>
-                        
-                        <div class="post-comments">
-                            <div class="comment">
-                                <div class="comment-avatar">م</div>
-                                <div class="comment-content">
-                                    <div class="comment-user">محمد</div>
-                                    <div class="comment-text">يبدو رائعاً! أتمنى لو كنت هناك.</div>
-                                </div>
-                            </div>
-                            
-                            <div class="post-add-comment">
-                                <input type="text" class="comment-input" placeholder="أضف تعليقاً...">
-                                <button class="post-btn">نشر</button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="post">
-                        <div class="post-header">
-                            <div class="user-avatar">ع</div>
-                            <div class="post-user-info">
-                                <div class="post-username">علي حسن</div>
-                                <div class="post-time">قبل ٥ ساعات</div>
-                            </div>
-                            <div class="post-more">
-                                <i class="fas fa-ellipsis-h"></i>
-                            </div>
-                        </div>
-                        
-                        <div class="post-text">
-                            <p>شاركني رأيك في هذا الفيديو الجديد الذي أنتجته! ✨</p>
-                        </div>
-                        
-                        <div class="post-content">
-                            <div class="video-placeholder">
-                                <i class="fas fa-play-circle"></i>
-                            </div>
-                        </div>
-                        
-                        <div class="post-actions">
-                            <div class="post-action">
-                                <i class="far fa-heart"></i>
-                                <span>إعجاب</span>
-                            </div>
-                            <div class="post-action">
-                                <i class="far fa-comment"></i>
-                                <span>تعليق</span>
-                            </div>
-                            <div class="post-action">
-                                <i class="far fa-share-square"></i>
-                                <span>مشاركة</span>
-                            </div>
-                        </div>
-                        
-                        <div class="post-stats">
-                            <span>٣٤٥ إعجاب</span>
-                            <span>•</span>
-                            <span>٤٢ تعليق</span>
+                            <span>0 تعليق</span>
                         </div>
                         
                         <div class="post-comments">
@@ -1032,26 +1083,34 @@
             </div>
             <div class="modal-body">
                 <div class="upload-options">
-                    <div class="upload-option">
+                    <div class="upload-option" onclick="document.getElementById('image-input').click()">
                         <i class="fas fa-image"></i>
                         <span>صورة</span>
                     </div>
-                    <div class="upload-option">
+                    <div class="upload-option" onclick="document.getElementById('video-input').click()">
                         <i class="fas fa-video"></i>
                         <span>فيديو</span>
                     </div>
-                    <div class="upload-option">
+                    <div class="upload-option" onclick="showTextInput()">
                         <i class="fas fa-file-alt"></i>
                         <span>نص فقط</span>
                     </div>
                 </div>
                 
+                <input type="file" id="image-input" class="file-input" accept="image/*" onchange="previewImage(this)">
+                <input type="file" id="video-input" class="file-input" accept="video/*" onchange="previewVideo(this)">
+                
+                <div class="preview-container">
+                    <img id="preview-image" class="preview-image" alt="معاينة الصورة">
+                    <video id="preview-video" class="preview-video" controls></video>
+                </div>
+                
                 <div class="form-group">
-                    <textarea placeholder="ماذا يدور في ذهنك؟"></textarea>
+                    <textarea id="post-text" placeholder="ماذا يدور في ذهنك؟"></textarea>
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="submit-btn">نشر</button>
+                <button class="submit-btn" id="submit-post" onclick="createPost()" disabled>نشر</button>
             </div>
         </div>
     </div>
@@ -1061,6 +1120,7 @@
         let currentUser = null;
         let users = JSON.parse(localStorage.getItem('instavid_users')) || [];
         let posts = JSON.parse(localStorage.getItem('instavid_posts')) || [];
+        let currentLanguage = 'ar';
         
         // تحميل المحتوى عند بدء التشغيل
         document.addEventListener('DOMContentLoaded', function() {
@@ -1069,7 +1129,10 @@
             if (savedUser) {
                 currentUser = JSON.parse(savedUser);
                 showPage('feed-page');
-                document.getElementById('user-avatar').textContent = currentUser.username.charAt(0);
+                document.getElementById('user-avatar').textContent = currentUser.username.charAt(0).toUpperCase();
+                
+                // إظهار منشور تجريبي
+                document.getElementById('sample-post').style.display = 'block';
             }
         });
         
@@ -1122,14 +1185,19 @@
                     currentUser = user;
                     localStorage.setItem('instavid_current_user', JSON.stringify(user));
                     showPage('feed-page');
-                    document.getElementById('user-avatar').textContent = user.username.charAt(0);
+                    document.getElementById('user-avatar').textContent = user.username.charAt(0).toUpperCase();
+                    
+                    // إظهار منشور تجريبي
+                    document.getElementById('sample-post').style.display = 'block';
+                    
+                    showNotification('تم تسجيل الدخول بنجاح!');
                 } else {
-                    alert('البريد الإلكتروني أو كلمة المرور غير صحيحة');
+                    showNotification('البريد الإلكتروني أو كلمة المرور غير صحيحة');
                 }
             } else {
                 // إنشاء حساب
                 if (users.some(u => u.email === email)) {
-                    alert('هذا البريد الإلكتروني مستخدم بالفعل');
+                    showNotification('هذا البريد الإلكتروني مستخدم بالفعل');
                     return;
                 }
                 
@@ -1148,9 +1216,12 @@
                 localStorage.setItem('instavid_current_user', JSON.stringify(newUser));
                 
                 showPage('feed-page');
-                document.getElementById('user-avatar').textContent = newUser.username.charAt(0);
+                document.getElementById('user-avatar').textContent = newUser.username.charAt(0).toUpperCase();
                 
-                alert('تم إنشاء حسابك بنجاح!');
+                // إظهار منشور تجريبي
+                document.getElementById('sample-post').style.display = 'block';
+                
+                showNotification('تم إنشاء حسابك بنجاح!');
             }
         });
         
@@ -1165,6 +1236,11 @@
         
         function closeModal() {
             document.getElementById('createModal').style.display = 'none';
+            // إعادة تعيين المعاينة
+            document.getElementById('preview-image').style.display = 'none';
+            document.getElementById('preview-video').style.display = 'none';
+            document.getElementById('post-text').value = '';
+            document.getElementById('submit-post').disabled = true;
         }
         
         // Close modal when clicking outside
@@ -1173,6 +1249,112 @@
                 closeModal();
             }
         });
+        
+        // معاينة الصورة
+        function previewImage(input) {
+            const preview = document.getElementById('preview-image');
+            const file = input.files[0];
+            
+            if (file) {
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                    document.getElementById('submit-post').disabled = false;
+                }
+                
+                reader.readAsDataURL(file);
+            }
+        }
+        
+        // معاينة الفيديو
+        function previewVideo(input) {
+            const preview = document.getElementById('preview-video');
+            const file = input.files[0];
+            
+            if (file) {
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                    document.getElementById('submit-post').disabled = false;
+                }
+                
+                reader.readAsDataURL(file);
+            }
+        }
+        
+        // إظهار إدخال النص
+        function showTextInput() {
+            document.getElementById('submit-post').disabled = false;
+        }
+        
+        // إنشاء منشور جديد
+        function createPost() {
+            const postText = document.getElementById('post-text').value;
+            const imageFile = document.getElementById('image-input').files[0];
+            const videoFile = document.getElementById('video-input').files[0];
+            
+            let newPost = {
+                id: Date.now(),
+                userId: currentUser.id,
+                username: currentUser.username,
+                text: postText,
+                timestamp: new Date().toLocaleString('ar-SA'),
+                likes: 0,
+                comments: []
+            };
+            
+            // معالجة الصورة إذا كانت موجودة
+            if (imageFile) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    newPost.image = e.target.result;
+                    savePost(newPost);
+                };
+                reader.readAsDataURL(imageFile);
+            } 
+            // معالجة الفيديو إذا كان موجوداً
+            else if (videoFile) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    newPost.video = e.target.result;
+                    savePost(newPost);
+                };
+                reader.readAsDataURL(videoFile);
+            } else {
+                savePost(newPost);
+            }
+            
+            closeModal();
+        }
+        
+        function savePost(post) {
+            posts.push(post);
+            localStorage.setItem('instavid_posts', JSON.stringify(posts));
+            showNotification('تم نشر منشورك بنجاح!');
+            
+            // إضافة المنشور إلى واجهة المستخدم
+            addPostToFeed(post);
+        }
+        
+        function addPostToFeed(post) {
+            // سيتم تنفيذ هذه الوظيفة في نسخة أكثر تقدمًا من الموقع
+            console.log('تم إنشاء منشور جديد:', post);
+        }
+        
+        // إظهار الإشعارات
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.style.display = 'block';
+            
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        }
         
         // Like functionality
         document.addEventListener('click', function(e) {
@@ -1194,6 +1376,26 @@
                 }
             }
         });
+        
+        // Language functionality
+        function toggleLanguageDropdown() {
+            document.getElementById('language-dropdown').classList.toggle('show');
+        }
+        
+        function changeLanguage(lang) {
+            currentLanguage = lang;
+            // سيتم تنفيذ الترجمة الفعلية في نسخة أكثر تقدمًا
+            toggleLanguageDropdown();
+            showNotification('تم تغيير اللغة');
+        }
+        
+        // إغلاق قائمة اللغة عند النقر خارجها
+        window.addEventListener('click', function(e) {
+            if (!e.target.matches('.language-btn') && !e.target.closest('.language-dropdown')) {
+                document.getElementById('language-dropdown').classList.remove('show');
+            }
+        });
     </script>
 </body>
 </html>
+```
